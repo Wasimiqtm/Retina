@@ -152,7 +152,7 @@
                                         </div>
                                     </li>
                                 </ul>
-                                
+
                             </div>
 
                             <div class="notific-review-pages">
@@ -228,7 +228,7 @@
                                     <nav aria-label="Page navigation example">
                                       {!! $Billing->links('vendor.pagination.custom') !!}
                                     </nav>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -244,21 +244,21 @@
                             <div class="item form-check form-image-check p-0">
                                 <input type="checkbox" name="adSpot" id="adSpot1" class="btn-check">
                                 <label class="carousel-btn-check" for="adSpot1">
-                                    <img src="images/1.jpg" alt="" class="img-fluid">
+                                    <img src="{{asset('assets/dashboard/images/1.jpg')}}" alt="" class="img-fluid">
                                     <i class="fas fa-check"></i>
                                 </label>
                             </div>
                             <div class="item form-check form-image-check p-0">
                                 <input type="checkbox" name="adSpot" id="adSpot2" class="btn-check">
                                 <label class="carousel-btn-check" for="adSpot2">
-                                    <img src="images/2.jpg" alt="" class="img-fluid">
+                                    <img src="{{asset('assets/dashboard/images/2.jpg')}}" alt="" class="img-fluid">
                                     <i class="fas fa-check"></i>
                                 </label>
                             </div>
                             <div class="item form-check form-image-check p-0">
                                 <input type="checkbox" name="adSpot" id="adSpot3" class="btn-check">
                                 <label class="carousel-btn-check" for="adSpot3">
-                                    <img src="images/1.jpg" alt="" class="img-fluid">
+                                    <img src="{{asset('assets/dashboard/images/1.jpg')}}" alt="" class="img-fluid">
                                     <i class="fas fa-check"></i>
                                 </label>
                             </div>
@@ -298,7 +298,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal v2 v3 fade" id="campaignInfoModal" tabindex="-1" aria-labelledby="campaignInfoModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content py-3">
