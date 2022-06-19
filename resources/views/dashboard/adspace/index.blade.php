@@ -22,7 +22,7 @@
                                         </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="row">
                                             <p class="mb-2 fs-16 fw-bold mb-0">Location</p>
 
@@ -33,7 +33,7 @@
                                                         @foreach($Country as $value)
                                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
-                                                       
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="form-group mb-3">
-                                                    <input type="text" name="address" placeholder="Enter the Area (Street Name, Area, etc)" class="form-control">
+                                                    <input id="searchTextField" type="text" name="address" placeholder="Enter the Area (Street Name, Area, etc)" class="form-control">
                                                 </div>
                                                 <div class="form-group inputDnD mb-3 mb-md-0">
                                                     <input type="file" name="file" class="form-control-file text-danger font-weight-bold" id="inputFile" onchange="readUrl(this)" data-title="Click to Upload Your AD Spot Photo">
@@ -103,7 +103,7 @@
                                                     <div class="col-md-5">
                                                        <div class="form-group mb-md-0">
                                                     <input type="text" name="dimention1" class="form-control">
-                                                </div> 
+                                                </div>
                                                     </div>*
                                                     <div class="col-md-5">
                                                          <div class="form-group mb-md-0">
@@ -111,7 +111,7 @@
                                                 </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Hight</p>
@@ -181,7 +181,7 @@
                                                 </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -234,8 +234,8 @@
                                                     <input type="button" id="dropdownMenu03" class="form-control dropdown-act px-4 form-select" value="">
                                                     <div class="input-modal dropdownMenu03 adspot-act-dropdown-menu p-0">
                                                         <ul class="list-unstyled mb-0">
-                                                            <li><button type="button" value="Individual">Action 1</button></li>
-                                                            <li><button type="button" value="Business">Action 2</button></li>
+                                                            <li><button type="button" value="Individual">View Details</button></li>
+                                                            <li><button type="button" onclick="deleteAd({{$value->id}})" value="Business">Delete AD Space</button></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -253,17 +253,41 @@
                                     <nav aria-label="Page navigation example">
                                       {!! $AdSpace->links('vendor.pagination.custom') !!}
                                     </nav>
-                                  
+
                                 </div>
                             </div>
 
-                            
+
                         </div>
                     </div>
 @endsection
 @push('script')
+
+{{--google map key script--}}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHH2WyrHbuChuvGc1zkbY3LwiODEF8zGI&libraries=places"></script>
+
 <script type="text/javascript">
-$('#Country').on('change',function() {
+
+    /*places autocomplete starts*/
+    function init() {
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+    }
+    google.maps.event.addDomListener(window, 'load', init);
+    /*places autocomplete ends*/
+
+    /*prevent form submit on enter starts*/
+    $(document).ready(function() {
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+                event.preventDefault();
+                return false;
+            }
+        });
+    });
+    /*prevent form submit on enter ends*/
+
+    $('#Country').on('change',function() {
     var country = $(this).val();
     var url = '{{ url('/') }}/dashboard/adspace/state/'+country;
   $.ajax({
@@ -279,7 +303,7 @@ $('#Country').on('change',function() {
                 html = '<option selected disabled>Select Local Government Area</option>'
                 $("#Government").html(html);
             }
-   
+
    }
   });
 })
@@ -298,9 +322,32 @@ $('#State').on('change',function() {
           });
                 $("#Government").html(html);
             }
-   
+
    }
   });
 })
+
+function deleteAd(id)
+{
+    $token = '{{ csrf_token() }}';
+    var result = confirm('Are you sure to delete?');
+    var url = '{{ url('/') }}/dashboard/adspace/delete/'+id;
+    if (result) {
+        $.ajax({
+            url: url,
+            success: function (response) {
+                console.log(response.result.success);
+                if (response.result.success) {
+                    iziToast.success({
+                        title: 'Ok',
+                        position: 'topRight',
+                        message: response.result.success
+                    });
+                    location.reload();
+                }
+            }
+        })
+    }
+}
 </script>
 @endpush

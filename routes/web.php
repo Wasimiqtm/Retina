@@ -49,7 +49,7 @@ Route::get('/getroutes', function() {
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
-// Admin Dashboard Login Routes 
+// Admin Dashboard Login Routes
         Route::namespace('Auth')->group(function () {
         Route::get('/', 'LoginController@showLoginForm')->name('login');
         Route::post('/', 'LoginController@login')->name('login');
@@ -73,7 +73,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 // Admin Dashboard Route
 
 Route::get('dashboard','DashboardControllerController@index')->name('dashboard');
-// Admin Dashboard Route End 
+// Admin Dashboard Route End
 
 // Admin Customer Route *********************************
 
@@ -105,7 +105,7 @@ Route::post('create/admin', 'GeneralSettingController@AdminCreate')->name('admin
 
 Route::namespace('Front')->prefix('/')->name('front.')->group(function(){
 
-    // Admin Dashboard Login Routes 
+    // Admin Dashboard Login Routes
  Route::namespace('Auth')->group(function () {
     Route::get('/login', 'LoginController@showLoginForm')->name('login');
     Route::post('/login', 'LoginController@login');
@@ -144,13 +144,14 @@ Route::namespace('Dashboard')->prefix('dashboard')->name('dashboard.')->group(fu
       Route::get('/compain/selected/adspot/{value}', 'CampaignController@SelectedAdSpotData')->name('adspot/selected/campaign');
       Route::get('/billing', 'BillingController@index')->name('billing');
       Route::get('/adspace', 'AdSpaceController@index')->name('adspace');
+      Route::get('adspace/delete/{id}', 'AdSpaceController@deleteAdSpace')->name('adspace.delete');
       Route::post('/adspace', 'AdSpaceController@create')->name('adspace');
       Route::get('/adspace/state/{country}', 'AdSpaceController@NewState')->name('adspace.state');
       Route::get('/adspace/government/{state}', 'AdSpaceController@NewGovernment')->name('adspace.government');
       Route::get('/media', 'MediaController@index')->name('media');
       Route::get('/setting', 'SettingController@index')->name('setting');
       Route::post('/setting', 'SettingController@create')->name('setting');
-      
-      
+
+
     });
 });

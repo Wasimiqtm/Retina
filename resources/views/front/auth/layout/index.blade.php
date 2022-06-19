@@ -28,9 +28,9 @@
                 </div>
             </section>
             <div class="stickey-icon-bar">
-              <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a> 
-              <a href="#" class="linkedin"><i class="fab fa-linkedin-in "></i></a> 
-              <a href="#" class="twitter"><i class="fab fa-twitter"></i></a> 
+              <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="linkedin"><i class="fab fa-linkedin-in "></i></a>
+              <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
             </div>
         </main>
         <!-- owl-carosel-min.js -->

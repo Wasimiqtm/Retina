@@ -15,8 +15,8 @@ class AdSpaceController extends Controller
 {
    public function index()
     {
-        $Country = Country::all();
-    	$AdSpace = AdSpace::select('countries.name as country_name','states.name as state_name','government_areas.name as government_name','ad_spaces.name as ad_name','ad_spaces.media_type','ad_spaces.created_at')
+        $Country = Country::where('status','active')->get();
+    	$AdSpace = AdSpace::select('countries.name as country_name','states.name as state_name','government_areas.name as government_name','ad_spaces.id', 'ad_spaces.name as ad_name','ad_spaces.media_type','ad_spaces.created_at')
         ->join('countries','countries.id','=','ad_spaces.country')
         ->join('states','states.id','=','ad_spaces.state')
         ->join('government_areas','government_areas.id','=','ad_spaces.gov_area')
@@ -49,7 +49,7 @@ class AdSpaceController extends Controller
             'runup'     => 'required|numeric',
             'faces'     => 'required|numeric',
         ]);
- 
+
         return $validate;
     }
 
@@ -82,9 +82,9 @@ class AdSpaceController extends Controller
         $file->move($path, $image);
         $AdSpace->file = $image;
         // }
-        $AdSpace->save(); 
+        $AdSpace->save();
 
-        }     
+        }
     // Setting Main Creation Function
     public function create(Request $request)
     {
@@ -95,7 +95,7 @@ class AdSpaceController extends Controller
 
          $notify[] = ['success', "Ad Space has been Added."];
             return redirect()->back()->withNotify($notify);
-    } 
+    }
 
     public function NewState($country='')
     {
@@ -110,5 +110,29 @@ class AdSpaceController extends Controller
         ->where('state_id',$state)
         ->get();
         return $GovernmentArea;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+
+    public function deleteAdSpace($id)
+
+    {
+        $adSpaced = AdSpace::find($id);
+        if($adSpaced)
+        {
+//            $adSpaced->delete();
+            $response['success'] = 'Ad Space successfully deleted!';
+            $status = 200;
+        }else{
+            $response['error'] = 'Ad Space not exist against this id!';
+            $status = 400;
+        }
+        return response()->json(['result'=>$response], $status);
     }
 }
