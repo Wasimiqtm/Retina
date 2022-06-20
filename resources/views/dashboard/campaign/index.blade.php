@@ -208,12 +208,12 @@
                             <div class="create-compaigns mange-compaigns navbar navbar-expand d-flex justify-content-between">
                                 <h3 class="h3">Manage Your <br> Existing Campaigns</h3>
                                 <div class="search-box notific-dropdown px-0">
-                                    <input id="dropdownMenu02" class="form-control px-4 form-select" value="Filter">
+                                    <input id="dropdownMenu02" class="form-control px-4 form-select" type="button" value="Filter">
                                     <div class="input-modal dropdownMenu02 p-0">
                                         <ul class="list-unstyled mb-0">
-                                            <li><a value="Individual">Last 7 Days</a></li>
-                                            <li><a value="Business">Last One Month</a></li>
-                                            <li><a value="Business">Custom Calendar</a></li>
+                                            <li><button type="button" value="Individual"><a href="{{url('/dashboard/campaign?days=7')}}">Last 7 Days</a></button></li>
+                                            <li><button type="button" value="Business"><a href="{{url('/dashboard/campaign?days=30')}}">Last One Month</a></button></li>
+                                            {{--<li><button type="button" value="Business">Custom Calendar</button></li>--}}
                                         </ul>
                                     </div>
                                 </div>
@@ -232,13 +232,13 @@
                                                 <h4 class="text-muted h4 fw-bold">{{$value->name}}</h4>
                                                 <p class="text-muted">{{$value->country_name}}  |  {{$value->state_name}}  |  {{$value->government_name}} | Image AD</p>
                                                 <div class="campaign-btn">
-                                                    <a class="btn-link">View Details</a>
+                                                    <a href="{{url('dashboard/campaign/'.$value->id)}}" class="btn-link">View Details</a>
                                                     <span role="a" class="text-red ms-4">Status: {{$value->status}}</span>
                                                 </div>
                                             </div>
                                             <div class="campaign-col-3">
                                                 <h4 class="text-muted h4 fw-bold">Price</h4>
-                                                <p class="price text-muted">N{{$value->amount}}</p>
+                                                <p class="price text-muted">{{$value->amount}}</p>
                                                 <div class="campaign-btn">
                                                     <a class="btn btn-link extend-button" data-bs-toggle="modal" data-bs-target="#ExtendDate" data-id='{{$value->id}}' >Extend</a>
                                                 </div>
@@ -247,9 +247,30 @@
                                     </li>
                                     @endforeach
                                     @else
-                                    <li class="notification d-flex justify-content-center align-items-center">
-                                        <a>No Existing Campaign</a>
-                                    </li>
+                                        @for ($i = 0; $i <= 4; $i++)
+                                            <li class="notification">
+                                                <div class="campaign-row">
+                                                    <div class="campaign-col-1">
+                                                        <span class="text-muted"></span>
+                                                    </div>
+                                                    <div class="campaign-col-2">
+                                                        <h4 class="text-muted h4 fw-bold"></h4>
+                                                        <p class="text-muted"></p>
+                                                        <div class="campaign-btn">
+                                                            <a class="btn-link"></a>
+                                                            <span role="a" class="text-red ms-4"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="campaign-col-3">
+                                                        <h4 class="text-muted h4 fw-bold"></h4>
+                                                        <p class="price text-muted"></p>
+                                                        <div class="campaign-btn">
+                                                            <a class="btn btn-link extend-button" data-bs-toggle="modal" data-bs-target="#ExtendDate" data-id='' ></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endfor
                                     @endif
                                 </ul>
                                 <div class="notific-review-pages">
@@ -291,7 +312,7 @@
                               <div class="form-group">
                                                     <div class="duration-group campaign-duration-date">
                                                         <input type="hidden" id="compaign-id" name="id">
-                                                        <input type="text" class="form-control" id="ExtDate" name="date" onclick="this.type='date';$(function(){
+                                                        <input required type="text" class="form-control" id="ExtDate" name="date" onclick="this.type='date';$(function(){
     var dtToday = new Date();
 
     var month = dtToday.getMonth() + 1;

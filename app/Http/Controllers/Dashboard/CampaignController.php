@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CampaignController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $Country = Country::all();
         $Campaign = Campaign::select('countries.name as country_name','states.name as state_name','government_areas.name as government_name','campaigns.*','billings.amount')
@@ -26,7 +26,19 @@ class CampaignController extends Controller
         ->join('states','states.id','=','campaigns.state')
         ->join('government_areas','government_areas.id','=','campaigns.gov_area')
         ->where('campaigns.user_id',Auth::user()->id)
-        ->paginate(4);
+        ->filter($request->days)
+        ->paginate(5);
+
+        $Campaign->getCollection()->transform(function ($value)
+        {
+            $otherDate = $value->to_date->subMinutes(10);
+            $nowDate = Carbon::now();
+            if($nowDate->gt($otherDate))
+            {
+                $value->status = 'Completed';
+            }
+            return $value;
+        });
     	return view('dashboard/campaign/index',compact('Campaign','Country'));
     }
 
@@ -156,5 +168,17 @@ class CampaignController extends Controller
          $notify[] = ['success', "Wait For Admin Approval."];
             return redirect()->back()->withNotify($notify);
 
+    }
+
+    public function viewCampaign($id)
+    {
+        $campaign = Campaign::find($id);
+        if($campaign)
+        {
+            dd($campaign);
+        } else {
+            $notify[] = ['error', "No campaign found against this id"];
+            return redirect()->back()->withNotify($notify);
+        }
     }
 }

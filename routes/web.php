@@ -137,6 +137,7 @@ Route::namespace('Dashboard')->prefix('dashboard')->name('dashboard.')->group(fu
     Route::middleware('auth')->group(function(){
       Route::get('/', 'DashboardController@index')->name('page');
       Route::get('/campaign', 'CampaignController@index')->name('campaign');
+      Route::get('/campaign/{id}', 'CampaignController@viewCampaign')->name('campaign.view');
       Route::post('/campaign', 'CampaignController@create')->name('campaign');
       Route::get('/campaign/check/adspot/{country}/{state}/{government}', 'CampaignController@CheckAdSpot')->name('check/campaign');
       Route::get('/campaign/number/check/adspot/{value}/{colunm}', 'CampaignController@CheckAdSpotNumber')->name('check/number/campaign');
