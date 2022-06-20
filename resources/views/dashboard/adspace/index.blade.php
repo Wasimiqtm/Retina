@@ -13,12 +13,12 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group mb-3">
-                                            <input type="text" name="spot_name" placeholder="Enter your AD Spot Name" class="form-control">
+                                            <input type="text" required name="spot_name" placeholder="Enter your AD Spot Name" class="form-control">
                                         </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group mb-3">
-                                            <input type="text" name="price" placeholder="Enter your AD Spot Price" class="form-control">
+                                            <input type="text" required name="price" placeholder="Enter your AD Spot Price" class="form-control">
                                         </div>
                                             </div>
                                         </div>
@@ -28,8 +28,8 @@
 
                                             <div class="col-xl-4">
                                                 <div class="form-group mb-md-0">
-                                                    <select class="form-select form-control" name="country" id="Country">
-                                                        <option selected disabled>Select Country</option>
+                                                    <select class="form-select form-control" name="country" id="Country" required>
+                                                        <option value="" selected disabled>Select Country</option>
                                                         @foreach($Country as $value)
                                                         <option value="{{$value->id}}">{{$value->name}}</option>
                                                         @endforeach
@@ -39,14 +39,14 @@
                                             </div>
                                             <div class="col-xl-4">
                                                 <div class="form-group mb-md-0">
-                                                    <select class="form-select form-control" name="state" id="State">
+                                                    <select class="form-select form-control" name="state" id="State" required>
                                                         <option selected disabled>Select State</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4">
                                                 <div class="form-group mb-md-0">
-                                                    <select class="form-select form-control" name="gov_area" id="Government">
+                                                    <select class="form-select form-control" name="gov_area" id="Government" required>
                                                         <option selected disabled>Select Local Government Area</option>
                                                     </select>
                                                 </div>
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="col-xl-6">
                                                 <div class="form-group mb-3">
-                                                    <input id="searchTextField" type="text" name="address" placeholder="Enter the Area (Street Name, Area, etc)" class="form-control">
+                                                    <input id="searchTextField" type="text" required name="address" placeholder="Enter the Area (Street Name, Area, etc)" class="form-control">
                                                 </div>
                                                 <div class="form-group inputDnD mb-3 mb-md-0">
                                                     <input type="file" name="file" class="form-control-file text-danger font-weight-bold" id="inputFile" onchange="readUrl(this)" data-title="Click to Upload Your AD Spot Photo">
@@ -102,12 +102,12 @@
                                                      <p class="mb-2 fs-16 fw-bold mb-0">Dimentions</p>
                                                     <div class="col-md-5">
                                                        <div class="form-group mb-md-0">
-                                                    <input type="text" name="dimention1" class="form-control">
+                                                    <input type="text" required name="dimention1" class="form-control">
                                                 </div>
                                                     </div>*
                                                     <div class="col-md-5">
                                                          <div class="form-group mb-md-0">
-                                                    <input type="text" name="dimention2" class="form-control">
+                                                    <input type="text" required name="dimention2" class="form-control">
                                                 </div>
                                                     </div>
                                                 </div>
@@ -117,7 +117,7 @@
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Hight</p>
                                                 <div class="form-group mb-md-0">
                                                     <select class="form-select form-control" name="hight" id="State">
-                                                        <option selected disabled>Select Hight</option>
+                                                        <option value="" selected disabled>Select Hight</option>
                                                         <option value="Moderate" >Moderate</option>
                                                     </select>
                                                 </div>
@@ -125,7 +125,7 @@
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Lighting</p>
                                                 <div class="form-group mb-md-0">
-                                                    <input type="text" placeholder="Enter Lightning" name="lightning" class="form-control">
+                                                    <input type="text" required placeholder="Enter Lightning" name="lightning" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -133,22 +133,22 @@
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Brand</p>
                                                  <div class="form-group mb-md-0">
-                                                    <input type="text" placeholder="Enter Brand Name" name="brand" class="form-control">
+                                                    <input type="text" required placeholder="Enter Brand Name" name="brand" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Medium</p>
                                                  <div class="form-group mb-md-0">
-                                                    <input type="text" placeholder="Enter Medium " name="medium" class="form-control">
+                                                    <input type="text" required placeholder="Enter Medium " name="medium" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Side of road</p>
                                                 <div class="form-group mb-md-0">
                                                     <select class="form-select form-control" name="road" >
-                                                        <option selected disabled>Select Road Side</option>
-                                                        <option value="Left">Left<option>
-                                                        <option value="Right">Right<option>
+                                                        <option value="" selected disabled>Select Road Side</option>
+                                                        <option value="Left" >Left</option>
+                                                        <option value="Right" >Right</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -157,13 +157,13 @@
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Orientation</p>
                                                  <div class="form-group mb-md-0">
-                                                    <input type="text" placeholder="Enter Orientation" name="orientation" class="form-control">
+                                                    <input type="text" required placeholder="Enter Orientation" name="orientation" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-xl-4">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Clutter</p>
                                                  <div class="form-group mb-md-0">
-                                                    <input type="text" placeholder="Enter Clutter " name="clutter" class="form-control">
+                                                    <input type="text" required placeholder="Enter Clutter " name="clutter" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-xl-4">
@@ -171,13 +171,13 @@
                                                     <div class="col-md-6">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Site Run Up</p>
                                                 <div class="form-group mb-md-0">
-                                                     <input type="text" placeholder="Enter Site Run Up " name="runup" class="form-control">
+                                                     <input type="text" required placeholder="Enter Site Run Up " name="runup" class="form-control">
                                                 </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                 <p class="mb-2 fs-16 fw-bold mb-0">Faces</p>
                                                 <div class="form-group mb-md-0">
-                                                     <input type="text" placeholder="Enter Faces " name="faces" class="form-control">
+                                                     <input type="text" required placeholder="Enter Faces " name="faces" class="form-control">
                                                 </div>
                                                     </div>
                                                 </div>
@@ -295,12 +295,12 @@
    success:function(data)
    {
     if (data) {
-                var html = '<option selected disabled>Select State</option>';
+                var html = '<option value="" selected disabled>Select State</option>';
                 $.each( data, function( key, value ) {
          html +='<option value="'+value.id+'">'+value.name+'</option>'
           });
                 $("#State").html(html);
-                html = '<option selected disabled>Select Local Government Area</option>'
+                html = '<option value="" selected disabled>Select Local Government Area</option>'
                 $("#Government").html(html);
             }
 
