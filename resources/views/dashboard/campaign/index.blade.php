@@ -78,7 +78,7 @@
                                                     <select class="form-select Check-Number" id="country" name="country">
                                                        <option selected disabled>Select Country</option>
                                                        @foreach($Country as $value)
-                                                        <option value="{{$value->id}}">{{$value->name}}</option>
+                                                        <option value="{{$value->id}}" {{$value->status == 'active' ? '' : 'disabled' }}>{{$value->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     <p class="form-select-msg"  style="display: none;"> <span id="country-msg"></span> Outdoor AD Space Available Here</p>
@@ -94,13 +94,14 @@
                                                        <option selected disabled>Select From Available Areas</option>
                                                     </select>
                                                     <p class="form-select-msg"  style="display: none;"><span id="government-msg"></span> Outdoor AD Space Available Here</p>
+                                                    <input type="hidden" name="adspot" id="adspot-ids" value="" />
                                                 </div>
 
                                                 <div class="form-group">
                                                     <a class="btn btn-regular bg-blue w-100 btn-lg text-center"  onclick="CheckAdSpot()">Preview Available AD Space</a>
                                                 </div>
                                                 <div id="SelectedAdSpace">
-                                                   
+
                                                 </div>
                                             </div>
                                         </div>
@@ -149,7 +150,7 @@
                                                         <label>AD Duration:</label>
                                                         <input type="text" id="FromDate" name="from" onclick="this.type='date';$(function(){
     var dtToday = new Date();
-    
+
     var month = dtToday.getMonth() + 1;
     var day = dtToday.getDate();
     var year = dtToday.getFullYear();
@@ -157,13 +158,13 @@
         month = '0' + month.toString();
     if(day < 10)
         day = '0' + day.toString();
-    
+
     var maxDate = year + '-' + month + '-' + day;
     $('#FromDate').attr('min', maxDate);
 });" class="form-select" placeholder="From">
                                                         <input type="text" id="ToDate" name="to" onclick="this.type='date';$(function(){
     var dtToday = new Date();
-    
+
     var month = dtToday.getMonth() + 1;
     var day = dtToday.getDate();
     var year = dtToday.getFullYear();
@@ -171,11 +172,12 @@
         month = '0' + month.toString();
     if(day < 10)
         day = '0' + day.toString();
-    
+
     var maxDate = year + '-' + month + '-' + day;
     $('#ToDate').attr('min', maxDate);
 });" class="form-select" placeholder="To">
                                                     </div>
+                                                    <input style="margin-top: 20px" type="text" class="form-control" id="amount" name="amount" placeholder="Enter Amount">
                                                 </div>
                                                 <div class="form-group my-3 campaign-price hidden">
                                                     <label class="form-select-msg">Thank You Fo the Place Ad</label>
@@ -194,7 +196,7 @@
                     <div class="modal-body">
                         <h2 class="h2 text-blue fw-bold mb-4 d-flex justify-content-between align-items-center"><span>AD Space Preview  |  Select Your Preferrence</span> <a class="btn-close fs-14 text-dark w-auto d-none" data-bs-dismiss="modal" aria-label="Close">Continue</a> <a class="btn-link text-blue fs-14 text-dark w-auto" data-bs-target="#adSpotsMapModal" data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Close">View on Map</a></h2>
                         <div class="owl-carousel adspots-carousel">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -242,8 +244,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </li>  
-                                    @endforeach  
+                                    </li>
+                                    @endforeach
                                     @else
                                     <li class="notification d-flex justify-content-center align-items-center">
                                         <a>No Existing Campaign</a>
@@ -254,7 +256,7 @@
                                     <nav aria-label="Page navigation example">
                                       {!! $Campaign->links('vendor.pagination.custom') !!}
                                     </nav>
-                                  
+
                                 </div>
                             </div>
                         </div>
@@ -270,7 +272,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <h2 class="h2 text-blue fw-bold mb-4 d-flex justify-content-between align-items-center"><span>AD Space Preview  |  Select Your Preferrence</span> <a class="btn-link text-blue fs-14 text-dark w-auto" data-bs-toggle="modal" data-bs-target="#adSpotsModal" data-bs-dismiss="modal" aria-label="Close">Preview AD Space</a></h2>
-                         
+
                        {{--  <div class="adspacemap d-flex justify-content-center align-items-center" > --}}
                             <div id="map"></div>
                         {{-- </div> --}}
@@ -291,7 +293,7 @@
                                                         <input type="hidden" id="compaign-id" name="id">
                                                         <input type="text" class="form-control" id="ExtDate" name="date" onclick="this.type='date';$(function(){
     var dtToday = new Date();
-    
+
     var month = dtToday.getMonth() + 1;
     var day = dtToday.getDate();
     var year = dtToday.getFullYear();
@@ -299,11 +301,11 @@
         month = '0' + month.toString();
     if(day < 10)
         day = '0' + day.toString();
-    
+
     var maxDate = year + '-' + month + '-' + day;
     $('#ExtDate').attr('min', maxDate);
 });" class="form-select" placeholder="To">
-                                                       
+
                                                     </div>
                                                 </div>
                             <div class="form-group mb-md-0">
@@ -317,7 +319,7 @@
 @endsection
 @push('script')
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDEtFl31-fbFHv_Iok62yuo5N-NdXtnsMA&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHH2WyrHbuChuvGc1zkbY3LwiODEF8zGI&callback=initMap">
 </script>
 <script type="text/javascript">
 $('.extend-button').click(function() {
@@ -335,15 +337,15 @@ $('.extend-button').click(function() {
                 var html = '<div class="form-select-msg" > <h5 >'+data.name+'</h5><tr><td >Dimentions</td> : <td>'+data.dimension+' Metres</td></tr><br> <tr><td>Hight</td> : <td>'+data.hight+'</td>  </tr><br> <tr><td>Price</td> : <td>N'+data.price+'</td></tr><br> <tr> <td>Lightning</td> : <td>'+data.lightning+'</td> </tr><br> <tr> <td>Brand</td> : <td>'+data.brand+'</td> </tr><br> <tr>  <td>Medium</td> : <td>'+data.medium+'</td> </tr><br>  <tr>  <td>Side of Road</td> : <td>'+data.side_road+'</td>  </tr><br> <tr> <td>Orientation</td> : <td>'+data.orientation+'</td> </tr><br>  <tr>  <td>Clutter</td> : <td>'+data.clutter+'</td></tr><br> <tr> <td>Site Run Up</td> : <td>'+data.runup+'</td>  </tr><br> <tr> <td>Faces</td> : <td>'+data.faces+'</td> </tr><br> <tr> <td>Address</td> : <td>'+data.address+'</td> </tr><br> </div>';
                 $("#SelectedAdSpace").html(html);
             }
-   
+
    }
   });
    }
      function CheckAdSpot()
  {
-   var country = $('#country').val(); 
-   var state = $('#state').val(); 
-   var government = $('#government').val(); 
+   var country = $('#country').val();
+   var state = $('#state').val();
+   var government = $('#government').val();
    if (!country == '' && !state == '' && !government == '') {
 
      var url = '{{ url('/') }}/dashboard/campaign/check/adspot/'+country+'/'+state+'/'+government;
@@ -393,7 +395,7 @@ $(function() {
         google.maps.event.trigger(map, "resize");
     });
 });
-   
+
    }
   });
 
@@ -404,7 +406,7 @@ $(function() {
  }
 
  $('.Check-Number').on('change',function(argument) {
-      var value = $(this).val(); 
+      var value = $(this).val();
       var colunm =   $(this).attr("id");
      var url = '{{ url('/') }}/dashboard/campaign/number/check/adspot/'+value+'/'+colunm;
   $.ajax({
@@ -413,16 +415,17 @@ $(function() {
    {
     if (data) {
         if (colunm == 'country') {
-        $('#country-msg').html(data);
+        $('#country-msg').html(data.count);
         }
         if (colunm == 'state') {
-        $('#state-msg').html(data);
+        $('#state-msg').html(data.count);
         }
         if (colunm == 'government') {
-        $('#government-msg').html(data);
+        $('#government-msg').html(data.count);
+        $('#adspot-ids').val(data.adSpotIds.join(', '));
         }
     }
-   
+
    }
   });
  });
@@ -442,7 +445,7 @@ $(function() {
                 html = '<option selected disabled>Select From Available Areas</option>'
                 $("#government").html(html);
             }
-   
+
    }
   });
 })
@@ -461,7 +464,7 @@ $('#state').on('change',function() {
           });
                 $("#government").html(html);
             }
-   
+
    }
   });
 })
@@ -479,17 +482,17 @@ function initMap(AdSpace,Government) {
     var loglat = new Array();
     var lat = 0;
     var log = 0;
-     $.each( Government, function( key, value ) { 
+     $.each( Government, function( key, value ) {
         lat = parseFloat(value.latitude)
         log = parseFloat(value.logitude)
-        // alert(lat)
+        alert(lat)
    map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: lat, lng: log },
     zoom: 8,
     // mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 })
-  
+
   const svgMarker = {
     path: "M10.453 14.016l6.563-6.609-1.406-1.406-5.156 5.203-2.063-2.109-1.406 1.406zM12 2.016q2.906 0 4.945 2.039t2.039 4.945q0 1.453-0.727 3.328t-1.758 3.516-2.039 3.070-1.711 2.273l-0.75 0.797q-0.281-0.328-0.75-0.867t-1.688-2.156-2.133-3.141-1.664-3.445-0.75-3.375q0-2.906 2.039-4.945t4.945-2.039z",
     fillColor: "red",
@@ -499,7 +502,7 @@ function initMap(AdSpace,Government) {
     scale: 2,
     anchor: new google.maps.Point(15, 30),
   };
-  var latlog = new Array(); 
+  var latlog = new Array();
  $.each( AdSpace, function( key, value ) {
   latlog = { lat: parseFloat(value.latitude) , lng: parseFloat(value.longitude) }
   var marker = new google.maps.Marker({
