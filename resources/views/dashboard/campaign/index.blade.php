@@ -238,10 +238,12 @@
                                             </div>
                                             <div class="campaign-col-3">
                                                 <h4 class="text-muted h4 fw-bold">Price</h4>
-                                                <p class="price text-muted">{{$value->amount}}</p>
-                                                <div class="campaign-btn">
-                                                    <a class="btn btn-link extend-button" data-bs-toggle="modal" data-bs-target="#ExtendDate" data-id='{{$value->id}}' >Extend</a>
-                                                </div>
+                                                <p class="price text-muted">{{$value->amount}}
+                                                @if($value->status == 'In Review')
+                                                    <div class="campaign-btn">
+                                                        <a class="btn btn-link extend-button" data-bs-toggle="modal" data-bs-target="#ExtendDate" data-id='{{$value->id}}' >Extend</a>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </li>

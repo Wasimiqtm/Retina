@@ -54,7 +54,7 @@ class CampaignController extends Controller
             'government'     => 'required|string',
             'type'     => 'required|string',
             'from'     => 'required',
-            'to'     => 'required',
+            'to'     => 'required|date|after_or_equal:from|after:today',
             'adspot'     => 'required',
             'amount'     => 'required|numeric',
         ]);
@@ -161,13 +161,16 @@ class CampaignController extends Controller
     }
     public function ExtendCompaign(Request $req)
     {
+        $req->validate([
+            'date' => 'required|date|after:today',
+        ]);
+
         $CompaignId = Campaign::find($req->id);
         $CompaignId->to_date = $req->date;
         $CompaignId->status = 'In Review';
         $CompaignId->save();
-         $notify[] = ['success', "Wait For Admin Approval."];
-            return redirect()->back()->withNotify($notify);
-
+        $notify[] = ['success', "Wait For Admin Approval."];
+        return redirect()->back()->withNotify($notify);
     }
 
     public function viewCampaign($id)
