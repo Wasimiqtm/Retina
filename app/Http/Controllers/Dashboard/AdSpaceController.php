@@ -126,7 +126,7 @@ class AdSpaceController extends Controller
         $adSpaced = AdSpace::find($id);
         if($adSpaced)
         {
-//            $adSpaced->delete();
+            $adSpaced->delete();
             $response['success'] = 'Ad Space successfully deleted!';
             $status = 200;
         }else{
