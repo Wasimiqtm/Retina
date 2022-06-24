@@ -65,6 +65,8 @@ class AdSpaceController extends Controller
         $AdSpace->gov_area     = isset($data['gov_area']) ? $data['gov_area'] : null;
         $AdSpace->media_type     = isset($data['media_type']) ? $data['media_type'] : null;
         $AdSpace->address     = isset($data['address']) ? $data['address'] : null;
+        $AdSpace->latitude     = isset($data['lat']) ? $data['lat'] : null;
+        $AdSpace->longitude     = isset($data['lng']) ? $data['lng'] : null;
         $AdSpace->dimension     = $data['dimention1'].'*'.$data['dimention2'];
         $AdSpace->hight     = isset($data['hight']) ? $data['hight'] : null;
         $AdSpace->lightning     = isset($data['lightning']) ? $data['lightning'] : null;
